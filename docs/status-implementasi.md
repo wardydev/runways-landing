@@ -14,7 +14,7 @@ Diperbarui: 27 Oktober 2026. Arah implementasi sekarang Astro SSG dengan data JS
 - `.env` dibersihkan menjadi konfigurasi publik website; password/token/license key lama tidak disalin ke source. Cache npm proyek dan output lama dibersihkan.
 - CI, contoh Nginx, release statis, PRD, serta panduan JSON/GitHub/VPS diperbarui. `AGENTS.md` lama dipertahankan sesuai instruksi awal pengguna.
 - Domain `runways.sewaclaude.id` ditambahkan ke allowlist Astro development/preview secara eksplisit.
-- `ecosystem.config.cjs` mengelola server file statis sebagai `runways-web` pada loopback port 8080. Contoh proxy Nginx dan panduan PM2/reboot tersedia; release mengikuti symlink `current` tanpa restart proses untuk perubahan konten.
+- `ecosystem.config.cjs` mengelola server file statis sebagai `runways-web` pada loopback port 4321 dengan default root `apps/web/dist/`. Contoh proxy Nginx dan panduan PM2/reboot tersedia; mode release diaktifkan dengan `RUNWAYS_WEBROOT=/var/www/runways` agar mengikuti symlink `current` tanpa restart proses untuk perubahan konten.
 
 ## Pengujian yang berhasil
 

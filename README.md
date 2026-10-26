@@ -43,7 +43,7 @@ Untuk menghilangkan catatan pricing, ubah `pricing_note_enabled` menjadi `false`
 |---|---|
 | `npm run dev` | Development Astro dengan perubahan source/JSON |
 | `npm run build` | Build statis ke `apps/web/dist/` dan validasi HTML/aset CSS |
-| `npm start` | Sajikan hasil build melalui server statis di `127.0.0.1:8080` |
+| `npm start` | Sajikan hasil build melalui server statis di `127.0.0.1:4321` |
 | `npm run preview` | Preview hasil build Astro |
 | `npm run check` | Pemeriksaan sintaks, konten JSON, route, dan metadata |
 | `npm test` | Uji konten, publikasi, harga, WhatsApp, keamanan markup, dan rendering |
@@ -55,7 +55,9 @@ Untuk menghilangkan catatan pricing, ubah `pricing_note_enabled` menjadi `false`
 
 `.env` hanya menggunakan `SITE_ENV`, `SITE_URL`, `PUBLIC_GA4_ID` opsional, dan `PREVIEW_PORT`. Tidak ada pilihan mode sumber data; konten selalu berasal dari JSON. Local/staging memakai noindex. Produksi memerlukan domain HTTPS dan konten yang sudah disetujui; build menolak penanda placeholder yang masih aktif.
 
-Konfigurasi PM2 tersedia di `ecosystem.config.cjs`: Nginx → `127.0.0.1:8080` → server file statis → `/var/www/runways/current`. Proses `runways-web` memakai satu instance, tanpa watch, dan mengikuti pergantian symlink release tanpa restart. Alternatif Nginx yang melayani file langsung juga tersedia. Perubahan source/JSON melalui GitHub → Git → build → release statis. Deployment menjaga rilis sebelumnya jika validasi/build gagal.
+Konfigurasi PM2 tersedia di `ecosystem.config.cjs`: Nginx → `127.0.0.1:4321` → server file statis → `apps/web/dist/`. Setelah `npm run build`, proses dapat dimulai dengan `pm2 start ecosystem.config.cjs --only runways-web`. Hentikan development/preview yang memakai port sama sebelum memulai PM2. Proses `runways-web` memakai satu instance tanpa watch; setelah build berikutnya selesai, file terbaru langsung dilayani.
+
+Untuk deployment atomik, mulai PM2 dengan `RUNWAYS_WEBROOT=/var/www/runways` agar root menggunakan symlink `/var/www/runways/current`. Script release memvalidasi dan membangun output sebelum mengaktifkan release baru, sehingga rilis sebelumnya tetap dilayani jika build gagal. Alternatif Nginx yang melayani file langsung juga tersedia.
 
 Domain `runways.sewaclaude.id` diizinkan secara eksplisit pada Astro development/preview. Untuk server publik gunakan konfigurasi PM2/Nginx pada [panduan VPS](docs/deployment-vps.md). `SITE_URL` mengatur metadata saat build; variabel runtime `RUNWAYS_STATIC_ROOT`, `RUNWAYS_HOST`, dan `RUNWAYS_PORT` mengatur server statis.
 

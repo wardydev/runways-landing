@@ -25,10 +25,9 @@ module.exports = {
         RUNWAYS_PORT: process.env.RUNWAYS_PORT || "4321",
         RUNWAYS_STATIC_ROOT:
           process.env.RUNWAYS_STATIC_ROOT ||
-          path.join(
-            process.env.RUNWAYS_WEBROOT || "/var/www/runways",
-            "current",
-          ),
+          (process.env.RUNWAYS_WEBROOT
+            ? path.join(process.env.RUNWAYS_WEBROOT, "current")
+            : path.join(__dirname, "apps/web/dist")),
       },
     },
   ],

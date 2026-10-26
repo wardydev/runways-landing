@@ -105,6 +105,7 @@ test('server fails before listening when port or built release is invalid', asyn
   const { root, directory } = await fixture(t);
   await assert.rejects(startStaticServer({ RUNWAYS_STATIC_ROOT: root, RUNWAYS_PORT: 'abc' }), /RUNWAYS_PORT/);
   await assert.rejects(startStaticServer({ RUNWAYS_STATIC_ROOT: directory }), /index.html/);
+  await assert.rejects(startStaticServer({ RUNWAYS_STATIC_ROOT: path.join(directory, 'missing') }), /Root hasil build tidak tersedia.*npm run build/);
 });
 
 test('PM2 config loads as CommonJS in the ESM repository and runs the static server', () => {
@@ -115,7 +116,10 @@ test('PM2 config loads as CommonJS in the ESM repository and runs the static ser
   assert.equal(app.watch, false);
   assert.equal(app.instances, 1);
   assert.equal(app.env.RUNWAYS_HOST, process.env.RUNWAYS_HOST || '127.0.0.1');
+  assert.equal(app.env.RUNWAYS_PORT, process.env.RUNWAYS_PORT || '4321');
   assert.equal(app.script, path.resolve('scripts/serve-static.mjs'));
   assert.equal(app.env.RUNWAYS_STATIC_ROOT, process.env.RUNWAYS_STATIC_ROOT
-    || path.join(process.env.RUNWAYS_WEBROOT || '/var/www/runways', 'current'));
+    || (process.env.RUNWAYS_WEBROOT
+      ? path.join(process.env.RUNWAYS_WEBROOT, 'current')
+      : path.resolve('apps/web/dist')));
 });

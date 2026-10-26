@@ -119,12 +119,19 @@ export function createStaticHandler({ root = defaultRoot } = {}) {
 
 export async function startStaticServer(env = process.env) {
   const root = path.resolve(env.RUNWAYS_STATIC_ROOT || defaultRoot);
-  const port = Number(env.RUNWAYS_PORT || 8080);
+  const port = Number(env.RUNWAYS_PORT || 4321);
   const host = env.RUNWAYS_HOST || '127.0.0.1';
   if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('RUNWAYS_PORT harus berupa port 1–65535.');
-  const releaseRoot = await realpath(root);
+  let releaseRoot;
+  try { releaseRoot = await realpath(root); }
+  catch (error) {
+    if (missingCodes.has(error.code)) {
+      throw new Error(`Root hasil build tidak tersedia: ${root}. Jalankan npm run build atau periksa RUNWAYS_STATIC_ROOT dan izin direktori.`);
+    }
+    throw error;
+  }
   const index = await findFile(releaseRoot, path.join(releaseRoot, 'index.html'));
-  if (!index?.info.isFile()) throw new Error('index.html tidak ditemukan. Build dan aktifkan release sebelum menjalankan server.');
+  if (!index?.info.isFile()) throw new Error(`index.html tidak ditemukan di ${root}. Jalankan npm run build atau periksa RUNWAYS_STATIC_ROOT.`);
   const server = createServer(createStaticHandler({ root }));
   await new Promise((resolve, reject) => {
     server.once('error', reject);
