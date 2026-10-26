@@ -142,20 +142,3 @@ export async function startStaticServer(env = process.env) {
   return server;
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  try {
-    const server = await startStaticServer();
-    let stopping = false;
-    function shutdown() {
-      if (stopping) return;
-      stopping = true;
-      server.close(() => process.exit(0));
-      setTimeout(() => { server.closeAllConnections(); process.exit(1); }, 5000).unref();
-    }
-    process.on('SIGINT', shutdown);
-    process.on('SIGTERM', shutdown);
-  } catch (error) {
-    console.error(`Server statis gagal dimulai: ${error.code || error.message}`);
-    process.exitCode = 1;
-  }
-}

@@ -5,7 +5,7 @@ module.exports = {
     {
       name: "runways-web",
       cwd: __dirname,
-      script: path.join(__dirname, "scripts/serve-static.mjs"),
+      script: path.join(__dirname, "scripts/start-static.mjs"),
       interpreter: process.execPath,
       instances: 1,
       exec_mode: "fork",

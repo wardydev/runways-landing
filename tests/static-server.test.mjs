@@ -5,6 +5,8 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { Writable } from 'node:stream';
 import { createRequire } from 'node:module';
+import { fork } from 'node:child_process';
+import { pathToFileURL } from 'node:url';
 import { createStaticHandler, startStaticServer } from '../scripts/serve-static.mjs';
 
 class Response extends Writable {
@@ -117,9 +119,64 @@ test('PM2 config loads as CommonJS in the ESM repository and runs the static ser
   assert.equal(app.instances, 1);
   assert.equal(app.env.RUNWAYS_HOST, process.env.RUNWAYS_HOST || '127.0.0.1');
   assert.equal(app.env.RUNWAYS_PORT, process.env.RUNWAYS_PORT || '4321');
-  assert.equal(app.script, path.resolve('scripts/serve-static.mjs'));
+  assert.equal(app.script, path.resolve('scripts/start-static.mjs'));
   assert.equal(app.env.RUNWAYS_STATIC_ROOT, process.env.RUNWAYS_STATIC_ROOT
     || (process.env.RUNWAYS_WEBROOT
       ? path.join(process.env.RUNWAYS_WEBROOT, 'current')
       : path.resolve('apps/web/dist')));
+});
+
+test('PM2-style import starts the listener, sends ready, and shuts down on SIGTERM', { timeout: 10000 }, async t => {
+  const { directory, root } = await fixture(t);
+  const require = createRequire(import.meta.url);
+  const { apps: [app] } = require('../ecosystem.config.cjs');
+  const preload = path.join(directory, 'http-preload.mjs');
+  const wrapper = path.join(directory, 'pm2-wrapper.mjs');
+  // Stub only the socket boundary. The real entrypoint, filesystem preflight,
+  // PM2 readiness message and signal handlers execute inside a child process.
+  await writeFile(preload, `
+    import http from 'node:http';
+    import { EventEmitter } from 'node:events';
+    import { syncBuiltinESMExports } from 'node:module';
+    class Server extends EventEmitter {
+      listen(port, host, callback) {
+        this.keepAlive = setInterval(() => {}, 1000);
+        process.send({ type: 'listen', port, host });
+        queueMicrotask(callback);
+      }
+      close(callback) { clearInterval(this.keepAlive); callback(); }
+      closeAllConnections() {}
+    }
+    http.createServer = () => new Server();
+    syncBuiltinESMExports();
+  `);
+  await writeFile(wrapper, `
+    import { pathToFileURL } from 'node:url';
+    await import(pathToFileURL(process.env.pm_exec_path));
+  `);
+  const child = fork(wrapper, [], {
+    cwd: directory,
+    execArgv: ['--import', pathToFileURL(preload).href],
+    env: { ...process.env, pm_exec_path: app.script, RUNWAYS_STATIC_ROOT: root, RUNWAYS_HOST: '127.0.0.1', RUNWAYS_PORT: '4321' },
+    silent: true,
+  });
+  t.after(() => { if (child.exitCode === null) child.kill('SIGKILL'); });
+  const messages = [];
+  let output = '';
+  let errors = '';
+  child.stdout.on('data', chunk => { output += chunk; });
+  child.stderr.on('data', chunk => { errors += chunk; });
+  child.on('message', message => {
+    messages.push(message);
+    if (message === 'ready') child.kill('SIGTERM');
+  });
+  const [code, signal] = await new Promise((resolve, reject) => {
+    child.once('error', reject);
+    child.once('close', (exitCode, exitSignal) => resolve([exitCode, exitSignal]));
+  });
+  assert.equal(code, 0, errors);
+  assert.equal(signal, null);
+  assert.deepEqual(messages, [{ type: 'listen', port: 4321, host: '127.0.0.1' }, 'ready']);
+  assert.match(output, /Runways static: http:\/\/127\.0\.0\.1:4321/);
+  assert.equal(errors, '');
 });
