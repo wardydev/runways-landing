@@ -1,0 +1,17 @@
+node_modules/
+.env
+.env.*
+!.env.example
+dist/
+.astro/
+.local-preview/
+.sites-runtime/
+coverage/
+playwright-report/
+test-results/
+.DS_Store
+*.log
+backups/
+.deploy.lock
+.runtime/
+.cache/

@@ -1,0 +1,15 @@
+---
+import Page from '../layouts/Page.astro';
+import { loadContent } from '../lib/content.mjs';
+import { getRoutes } from '../lib/pages.mjs';
+
+export async function getStaticPaths() {
+  const data = await loadContent(import.meta.env);
+  return getRoutes(data).map((route) => ({
+    params: { path: route.path.split('/').filter(Boolean).join('/') || undefined },
+    props: { data, route },
+  }));
+}
+const { data, route } = Astro.props;
+---
+<Page data={data} route={route} />

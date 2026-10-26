@@ -1,0 +1,7 @@
+---
+import Page from '../layouts/Page.astro';
+import { loadContent } from '../lib/content.mjs';
+import { notFoundRoute } from '../lib/pages.mjs';
+const data = await loadContent(import.meta.env);
+---
+<Page data={data} route={notFoundRoute} />

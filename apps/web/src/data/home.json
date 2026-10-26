@@ -1,0 +1,72 @@
+{
+  "pricing_note_enabled": true,
+  "pricing_note_title": "Catatan pratinjau",
+  "pricing_note_text": "Seluruh harga dan cakupan merupakan contoh, belum menjadi penawaran resmi.",
+  "id": "10000000-0000-4000-8000-000000000002",
+  "hero_label": "Teman langkah bisnis Anda",
+  "hero_title": "Siapkan legalitas,\nbangun langkah\nbisnis Anda.",
+  "hero_cta_label": "Konsultasi Sekarang",
+  "hero_secondary_label": "Kenali layanan",
+  "hero_description": "Dari rencana pertama hingga administrasi usaha. Temukan pendampingan yang sesuai, dengan cakupan jelas dan proses yang mudah diikuti.",
+  "hero_image_left": "/assets/images/header-img1.png",
+  "hero_image_right": "/assets/images/header-img2.png",
+  "benefits_title": "Lebih tenang melangkah,\nlebih fokus berusaha.",
+  "benefits_description": "Setiap usaha punya cerita dan kebutuhan berbeda. Mulai dengan memahami kebutuhan Anda, lalu susun langkah berikutnya bersama.",
+  "benefits_image": "/assets/images/about-img1.png",
+  "benefits": [
+    {
+      "title": "Kebutuhan lebih terarah",
+      "description": "Diskusikan tujuan usaha sebelum menentukan layanan.",
+      "icon": "compass"
+    },
+    {
+      "title": "Cakupan lebih jelas",
+      "description": "Pahami apa yang termasuk dalam pilihan paket Anda.",
+      "icon": "document"
+    },
+    {
+      "title": "Proses mudah diikuti",
+      "description": "Ketahui kelengkapan dan tahapan yang perlu disiapkan.",
+      "icon": "steps"
+    },
+    {
+      "title": "Komunikasi praktis",
+      "description": "Satu jalur konsultasi untuk membahas kebutuhan Anda.",
+      "icon": "chat"
+    }
+  ],
+  "pricing_title": "Pilihan untuk setiap\nlangkah usaha.",
+  "pricing_description": "Kenali cakupannya, bandingkan pilihannya, lalu diskusikan yang paling sesuai untuk Anda.",
+  "services_title": "Kebutuhan berbeda,\npendampingan yang tepat.",
+  "services_description": "Mulai dari persiapan pendirian hingga pembaruan administrasi. Pilih topik yang ingin Anda diskusikan.",
+  "process_title": "Dari cerita Anda,\nke langkah berikutnya.",
+  "process_steps": [
+    {
+      "title": "Ceritakan kebutuhan",
+      "description": "Sampaikan rencana, bidang usaha, dan pertanyaan awal Anda.",
+      "image": "/assets/images/tabs-img1.png"
+    },
+    {
+      "title": "Bahas pilihan bersama",
+      "description": "Tinjau cakupan paket, biaya, dan tahapan sebelum menyepakati layanan.",
+      "image": "/assets/images/tabs-img2.png"
+    },
+    {
+      "title": "Siapkan kelengkapan",
+      "description": "Lengkapi data dan dokumen sesuai kebutuhan yang telah dibahas.",
+      "image": "/assets/images/tabs-img3.png"
+    },
+    {
+      "title": "Ikuti perkembangan",
+      "description": "Terima informasi proses dan hasil sesuai ruang lingkup kesepakatan.",
+      "image": "/assets/images/about-img1.png"
+    }
+  ],
+  "portfolio_title": "Setiap usaha,\ncerita yang berbeda.",
+  "gallery_title": "Ruang diskusi,\nlangkah kolaborasi.",
+  "articles_title": "Bekal informasi\nuntuk bisnis Anda.",
+  "closing_headline": "Rencana usaha Anda\nlayak mendapat langkah jelas.",
+  "closing_description": "Mulai dengan menceritakan kebutuhan Anda. Mari pahami pilihan pendampingan yang relevan untuk langkah berikutnya.",
+  "offer_label": "Mulai dari diskusi kebutuhan",
+  "closing_cta_label": "Konsultasi WhatsApp"
+}

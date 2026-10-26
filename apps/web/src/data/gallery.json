@@ -1,0 +1,46 @@
+[
+  {
+    "id": "10000000-0000-4000-8000-000000000060",
+    "title": "Ruang konsultasi",
+    "category": "Konsultasi",
+    "image_url": "/assets/images/tabs-img1.png",
+    "alt_text": "Ilustrasi ruang diskusi dari aset template",
+    "caption": "Ilustrasi konsultasi — aset template",
+    "status": "published",
+    "is_demo": true,
+    "sort": 1
+  },
+  {
+    "id": "10000000-0000-4000-8000-000000000061",
+    "title": "Diskusi kebutuhan",
+    "category": "Diskusi",
+    "image_url": "/assets/images/tabs-img2.png",
+    "alt_text": "Ilustrasi kegiatan diskusi dari aset template",
+    "caption": "Ilustrasi diskusi — aset template",
+    "status": "published",
+    "is_demo": true,
+    "sort": 2
+  },
+  {
+    "id": "10000000-0000-4000-8000-000000000062",
+    "title": "Pemeriksaan kelengkapan",
+    "category": "Administrasi",
+    "image_url": "/assets/images/tabs-img3.png",
+    "alt_text": "Ilustrasi peninjauan kelengkapan dari aset template",
+    "caption": "Ilustrasi administrasi — aset template",
+    "status": "published",
+    "is_demo": true,
+    "sort": 3
+  },
+  {
+    "id": "10000000-0000-4000-8000-000000000063",
+    "title": "Kolaborasi usaha",
+    "category": "Diskusi",
+    "image_url": "/assets/images/about-img1.png",
+    "alt_text": "Ilustrasi pembahasan dokumen bersama dari aset template",
+    "caption": "Ilustrasi kolaborasi — aset template",
+    "status": "published",
+    "is_demo": true,
+    "sort": 4
+  }
+]

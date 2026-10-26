@@ -1,0 +1,11 @@
+---
+import { renderHead, renderPageContent } from '../lib/pages.mjs';
+const { data, route } = Astro.props;
+---
+<!doctype html>
+<html lang="id">
+  <head>
+    <Fragment set:html={renderHead(data, route)} />
+  </head>
+  <body id="top" set:html={renderPageContent(data, route)} />
+</html>

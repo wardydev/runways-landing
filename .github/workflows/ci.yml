@@ -1,0 +1,25 @@
+name: Validate website
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm run check
+      - run: npm test
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+      - name: Build static website (noindex)
+        run: npm run build
+        env:
+          SITE_ENV: staging
+          SITE_URL: https://staging.example.test

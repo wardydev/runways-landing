@@ -1,0 +1,15 @@
+# Static Astro output. Replace the hostname and configure TLS before production.
+server {
+  listen 80;
+  server_name example.test;
+  root /var/www/runways/current;
+  index index.html;
+  error_page 404 /404.html;
+  add_header X-Content-Type-Options nosniff always;
+  add_header Referrer-Policy strict-origin-when-cross-origin always;
+  location / { try_files $uri $uri/ =404; }
+  location ~* \.(?:css|js|png|webp|jpg|jpeg|svg|woff2)$ {
+    expires 1d;
+    try_files $uri =404;
+  }
+}

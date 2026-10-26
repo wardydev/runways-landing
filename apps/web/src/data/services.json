@@ -1,0 +1,50 @@
+[
+  {
+    "id": "10000000-0000-4000-8000-000000000010",
+    "name": "Persiapan Pendirian Usaha",
+    "slug": "persiapan-pendirian-usaha",
+    "category": "Pendirian usaha",
+    "sort": 1,
+    "status": "published",
+    "is_demo": true,
+    "short_description": "Bahas rencana bentuk usaha dan kelengkapan awal untuk memulai langkah bisnis Anda.",
+    "image_url": "/assets/images/tabs-img1.png",
+    "icon": "building",
+    "body": "<p>Menentukan langkah awal usaha dimulai dari memahami rencana dan kebutuhan bisnis Anda. Sesi pembahasan membantu menyusun daftar informasi yang perlu disiapkan.</p><p>Cakupan contoh meliputi diskusi awal, pemetaan kebutuhan, dan pemeriksaan kelengkapan. Jenis badan usaha, persyaratan, biaya, serta tahapan final ditentukan setelah konsultasi.</p>",
+    "seo_title": "Persiapan Pendirian Usaha",
+    "seo_description": "Pahami ruang lingkup contoh pendampingan persiapan pendirian usaha dan pilihan paketnya.",
+    "noindex": false
+  },
+  {
+    "id": "10000000-0000-4000-8000-000000000011",
+    "name": "Administrasi & Perizinan",
+    "slug": "administrasi-perizinan",
+    "category": "Administrasi usaha",
+    "sort": 2,
+    "status": "published",
+    "is_demo": true,
+    "short_description": "Petakan kebutuhan administrasi dan kelengkapan yang sesuai dengan kegiatan usaha Anda.",
+    "image_url": "/assets/images/tabs-img2.png",
+    "icon": "document",
+    "body": "<p>Ceritakan bidang kegiatan dan kondisi usaha Anda untuk membantu memetakan kebutuhan administrasi yang relevan.</p><p>Daftar pekerjaan dan hasil yang termasuk dalam layanan akan dijelaskan sebelum kesepakatan. Materi ini merupakan contoh tampilan, bukan daftar persyaratan hukum.</p>",
+    "seo_title": "Pendampingan Administrasi Usaha",
+    "seo_description": "Kenali contoh cakupan pendampingan administrasi dan persiapan perizinan usaha.",
+    "noindex": false
+  },
+  {
+    "id": "10000000-0000-4000-8000-000000000012",
+    "name": "Pembaruan Data Usaha",
+    "slug": "pembaruan-data-usaha",
+    "category": "Pengembangan usaha",
+    "sort": 3,
+    "status": "published",
+    "is_demo": true,
+    "short_description": "Diskusikan perubahan informasi usaha dan rencana penyesuaian administrasinya.",
+    "image_url": "/assets/images/tabs-img3.png",
+    "icon": "refresh",
+    "body": "<p>Saat kebutuhan bisnis berubah, informasi administrasi dapat memerlukan peninjauan. Mulai dengan mendata kondisi saat ini dan perubahan yang direncanakan.</p><p>Cakupan dan kelengkapan akan disesuaikan setelah pemeriksaan kebutuhan. Tidak ada jaminan durasi atau hasil otomatis pada contoh layanan ini.</p>",
+    "seo_title": "Pembaruan Data Usaha",
+    "seo_description": "Diskusikan contoh kebutuhan peninjauan dan pembaruan administrasi usaha.",
+    "noindex": false
+  }
+]

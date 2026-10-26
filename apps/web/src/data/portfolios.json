@@ -1,0 +1,34 @@
+[
+  {
+    "id": "10000000-0000-4000-8000-000000000050",
+    "title": "Persiapan usaha kuliner",
+    "slug": "contoh-usaha-kuliner",
+    "summary": "Ilustrasi pemetaan kebutuhan dan penyusunan daftar kelengkapan awal.",
+    "image_url": "/assets/images/casestudy-img1.png",
+    "category": "Persiapan usaha",
+    "status": "draft",
+    "consent_to_publish": false,
+    "is_demo": true,
+    "sort": 1,
+    "body": "<p>Studi kasus ini fiktif dan hanya digunakan untuk memperlihatkan susunan halaman portfolio. Tidak mewakili klien atau hasil pekerjaan nyata.</p>",
+    "seo_title": "Contoh Persiapan Usaha Kuliner",
+    "seo_description": "Ilustrasi format studi kasus pendampingan usaha kuliner.",
+    "noindex": false
+  },
+  {
+    "id": "10000000-0000-4000-8000-000000000051",
+    "title": "Penataan administrasi usaha jasa",
+    "slug": "contoh-usaha-jasa",
+    "summary": "Ilustrasi diskusi ruang lingkup dan pemeriksaan kelengkapan usaha.",
+    "image_url": "/assets/images/casestudy-img2.png",
+    "category": "Administrasi usaha",
+    "status": "draft",
+    "consent_to_publish": false,
+    "is_demo": true,
+    "sort": 2,
+    "body": "<p>Studi kasus ini fiktif dan belum disetujui untuk publikasi. Data klien dan hasil nyata harus melalui persetujuan sebelum ditampilkan.</p>",
+    "seo_title": "Contoh Administrasi Usaha Jasa",
+    "seo_description": "Ilustrasi format studi kasus penataan administrasi usaha jasa.",
+    "noindex": false
+  }
+]

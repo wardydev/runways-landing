@@ -1,0 +1,18 @@
+[
+  {
+    "id": "10000000-0000-4000-8000-000000000070",
+    "service_id": null,
+    "question": "Bagaimana memilih layanan yang sesuai?",
+    "answer": "Mulai dengan menceritakan kondisi dan rencana usaha Anda. Cakupan pendampingan dibahas sebelum kesepakatan.",
+    "status": "published",
+    "sort": 1
+  },
+  {
+    "id": "10000000-0000-4000-8000-000000000071",
+    "service_id": null,
+    "question": "Apakah biaya pada halaman ini sudah final?",
+    "answer": "Saat ini seluruh harga merupakan data contoh untuk prototipe. Harga final, cakupan, dan ketentuan menunggu persetujuan pemilik bisnis.",
+    "status": "published",
+    "sort": 2
+  }
+]

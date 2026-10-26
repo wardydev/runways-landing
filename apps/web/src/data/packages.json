@@ -1,0 +1,64 @@
+[
+  {
+    "id": "10000000-0000-4000-8000-000000000020",
+    "service_id": "10000000-0000-4000-8000-000000000011",
+    "name": "Langkah Awal",
+    "price": 750000,
+    "compare_at_price": null,
+    "featured": false,
+    "sort": 1,
+    "status": "published",
+    "is_demo": true,
+    "description": "Untuk mulai memetakan kebutuhan administrasi usaha.",
+    "deliverables": [
+      "Diskusi kebutuhan awal",
+      "Pemetaan informasi usaha",
+      "Daftar kelengkapan awal"
+    ],
+    "estimated_duration_text": "Dibahas setelah pemeriksaan kebutuhan",
+    "disclaimer": "Harga dan cakupan adalah contoh. Biaya final menunggu kesepakatan.",
+    "message_template": "Halo, saya ingin berdiskusi tentang paket Langkah Awal."
+  },
+  {
+    "id": "10000000-0000-4000-8000-000000000021",
+    "service_id": "10000000-0000-4000-8000-000000000011",
+    "name": "Pendampingan",
+    "price": 1250000,
+    "compare_at_price": null,
+    "featured": true,
+    "sort": 2,
+    "status": "published",
+    "is_demo": true,
+    "description": "Untuk membahas kebutuhan dengan pendampingan lebih lanjut.",
+    "deliverables": [
+      "Seluruh cakupan Langkah Awal",
+      "Pemeriksaan kelengkapan",
+      "Pendampingan administrasi",
+      "Informasi tahapan proses"
+    ],
+    "estimated_duration_text": "Disesuaikan dengan ruang lingkup",
+    "disclaimer": "Harga dan cakupan adalah contoh. Biaya final menunggu kesepakatan.",
+    "message_template": "Halo, saya ingin berdiskusi tentang paket Pendampingan."
+  },
+  {
+    "id": "10000000-0000-4000-8000-000000000022",
+    "service_id": "10000000-0000-4000-8000-000000000010",
+    "name": "Usaha Terarah",
+    "price": 3500000,
+    "compare_at_price": null,
+    "featured": false,
+    "sort": 3,
+    "status": "published",
+    "is_demo": true,
+    "description": "Untuk mendiskusikan persiapan pendirian usaha Anda.",
+    "deliverables": [
+      "Diskusi rencana bentuk usaha",
+      "Pemetaan kebutuhan pendirian",
+      "Pemeriksaan kelengkapan",
+      "Koordinasi tahapan layanan"
+    ],
+    "estimated_duration_text": "Dibahas sesuai kebutuhan pendirian",
+    "disclaimer": "Harga dan cakupan adalah contoh. Biaya final menunggu kesepakatan.",
+    "message_template": "Halo, saya ingin berdiskusi tentang paket Usaha Terarah."
+  }
+]
