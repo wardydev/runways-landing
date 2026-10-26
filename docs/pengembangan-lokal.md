@@ -8,6 +8,10 @@ Website memakai Astro SSG dan data JSON lokal. Gunakan Node `22.23.4` sesuai `.n
 
 Astro/Vite melacak impor JSON sehingga perubahan konten diproses saat development. Preview alternatif memakai snapshot data saat proses dimulai, sehingga perlu dibangun atau dimulai ulang setelah mengedit JSON.
 
+Domain `runways.sewaclaude.id` tercantum dalam `server.allowedHosts` di `apps/web/astro.config.mjs`. Jika development diproxy melalui domain itu, restart proses Astro setelah perubahan konfigurasi. Tambahkan hostname lain secara eksplisit jika diperlukan; jangan gunakan `allowedHosts: true`. `SITE_URL` hanya mengatur URL situs/metadata.
+
+Untuk memeriksa server statis yang digunakan PM2, jalankan `npm run build` kemudian `npm start`. Default-nya `http://127.0.0.1:8080` dengan root `apps/web/dist/`. Pengaturan runtime opsional: `RUNWAYS_STATIC_ROOT` (direktori output), `RUNWAYS_HOST`, dan `RUNWAYS_PORT`; variabel ini dibaca dari environment proses. Server tidak merender source atau mengikuti perubahan JSON sebelum build ulang.
+
 ## Pemetaan template
 
 Template asli `templates/apps/templates/pages/index2.html` dipertahankan sebagai referensi. Struktur halaman:

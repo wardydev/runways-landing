@@ -8,7 +8,7 @@ Website company profile dan akuisisi lead untuk pendampingan legalitas serta adm
 
 ## Arsitektur
 
-Astro SSG menghasilkan HTML statis dari file JSON lokal. Aset disimpan di public. Tidak ada CMS, database, backend autentikasi, atau lisensi layanan konten. Pembaruan mengikuti edit JSON/source → GitHub → build → deploy statis. Nginx menyajikan hasil build; Node hanya digunakan saat development/build.
+Astro SSG menghasilkan HTML statis dari file JSON lokal. Aset disimpan di public. Tidak ada CMS, database, backend autentikasi, atau lisensi layanan konten. Pembaruan mengikuti edit JSON/source → GitHub → build → deploy statis. Nginx memproxy server file statis Node yang dikelola PM2 pada loopback, dengan root symlink release `/var/www/runways/current`. Alternatifnya, Nginx dapat menyajikan hasil build langsung tanpa proses Node runtime.
 
 ## Desain dan halaman
 

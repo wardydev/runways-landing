@@ -14,6 +14,8 @@ async function walk(directory) {
   }
 }
 for (const directory of ['../scripts', '../apps/web/src', '../apps/web/public']) await walk(directory);
+const pm2Syntax = spawnSync(process.execPath, ['--check', new URL('../ecosystem.config.cjs', import.meta.url).pathname], { encoding: 'utf8' });
+if (pm2Syntax.status !== 0) throw new Error(pm2Syntax.stderr);
 const data = await loadContent({ SITE_ENV: 'local' });
 const routes = [...getRoutes(data), notFoundRoute];
 const paths = new Set();

@@ -9,5 +9,9 @@ export default defineConfig({
   envDir: '../../',
   trailingSlash: 'always',
   devToolbar: { enabled: false },
-  server: { port: 4321, host: '127.0.0.1' },
+  server: {
+    port: 4321,
+    host: '127.0.0.1',
+    allowedHosts: ['runways.sewaclaude.id'],
+  },
 });

@@ -1,6 +1,6 @@
 # Deployment Statis ke VPS melalui GitHub dan Git
 
-Website disajikan sebagai file HTML/CSS/JS oleh Nginx. Node dibutuhkan untuk build, bukan sebagai backend website. Database dan service CMS tidak digunakan. Panduan server ini belum dijalankan pada VPS pengguna.
+Website disajikan sebagai file HTML/CSS/JS. Konfigurasi utama: **Nginx HTTPS → server statis Node di `127.0.0.1:8080` yang dikelola PM2 → `/var/www/runways/current`**. Database dan CMS tidak digunakan. Panduan ini belum dijalankan pada VPS pengguna.
 
 ## 1. Persiapan repository
 
@@ -22,13 +22,13 @@ Ganti URL repository dengan tujuan sebenarnya. Workflow GitHub memvalidasi sourc
 
 ## 2. Persiapan VPS
 
-Sediakan Git, Node/npm sesuai `.nvmrc` jika build dilakukan di VPS, Nginx, TLS, serta user deploy. Clone ke `/srv/runways/repository`. Berikan akses user deploy ke `/var/www/runways/releases` dan symlink `/var/www/runways/current`. Gunakan deploy key GitHub read-only untuk repository privat.
+Sediakan Git, Node/npm sesuai `.nvmrc`, PM2, Nginx, TLS, serta user deploy. Clone ke `/srv/runways/repository`. Berikan akses user deploy ke `/var/www/runways/releases` dan symlink `/var/www/runways/current`. Gunakan deploy key GitHub read-only untuk repository privat. Jalankan PM2 sebagai user deploy yang sama, bukan root. Versi PM2 yang menjadi acuan konfigurasi ini adalah `6.0.13`.
 
 Install dependency dengan `npm ci`. Buat `.env` publik dari contoh, lalu atur domain sebenarnya:
 
 ```dotenv
 SITE_ENV=staging
-SITE_URL=https://domain-anda.id
+SITE_URL=https://runways.sewaclaude.id
 PUBLIC_GA4_ID=
 PREVIEW_PORT=4321
 ```
@@ -46,11 +46,47 @@ bash infra/deploy/release.sh
 
 File JSON yang diubah melalui Git ikut release berikutnya. Tidak ada webhook atau penerbitan otomatis dari dashboard. Alternatifnya, build dapat dilakukan di CI/lokal lalu hanya folder `apps/web/dist/` yang diunggah ke VPS.
 
-## 4. Nginx dan HTTPS
+## 4. PM2 dan Nginx
 
-Adaptasikan `infra/deploy/nginx.conf.example`: ganti hostname dan root direktori, uji konfigurasi Nginx, lalu aktifkan sertifikat TLS dan redirect HTTPS. Contoh hanya memuat HTTP; TLS tetap harus dikonfigurasi pada server. Tidak ada subdomain API atau proxy backend.
+Setelah release pertama membuat symlink `current`, mulai server statis dari clone repository:
+
+```bash
+cd /srv/runways/repository
+npm install --global pm2@6.0.13
+pm2 start ecosystem.config.cjs --only runways-web
+pm2 save
+pm2 startup
+```
+
+`pm2 startup` menampilkan perintah instalasi service sesuai user, OS, dan path Node. Administrator menjalankan perintah tersebut agar proses pulih setelah reboot, lalu `pm2 save`. Jika versi/path Node berubah, perbarui service startup. Jangan menjalankan daftar PM2 yang sama sebagai root dan user deploy.
+
+`ecosystem.config.cjs` kompatibel dengan repository ESM. Satu proses fork menjalankan `scripts/serve-static.mjs`, watch dinonaktifkan, restart otomatis dibatasi ketika startup berulang kali gagal, dan PM2 menunggu sinyal siap. Server memeriksa `index.html` sebelum listen. `NODE_ENV=production` di PM2 tidak mengganti `SITE_ENV` yang dipakai ketika build.
+
+| Variabel environment proses PM2 | Default | Fungsi |
+|---|---|---|
+| `RUNWAYS_STATIC_ROOT` | `/var/www/runways/current` | Root hasil build; hanya file di root ini yang dilayani |
+| `RUNWAYS_WEBROOT` | `/var/www/runways` | Root release jika `RUNWAYS_STATIC_ROOT` tidak diisi |
+| `RUNWAYS_HOST` | `127.0.0.1` | Bind lokal untuk reverse proxy |
+| `RUNWAYS_PORT` | `8080` | Port server statis |
+
+Variabel runtime ini diberikan melalui environment shell/PM2, bukan `.env` konten Astro. Jika path/port diubah, terapkan lagi konfigurasi dengan `pm2 restart ecosystem.config.cjs --only runways-web --update-env`, sesuaikan upstream Nginx, kemudian `pm2 save`. Restart singkat diperlukan jika script server berubah. Deploy JSON/aset saja cukup mengganti symlink `current`; proses mengambil root release terbaru pada setiap request.
+
+Gunakan `infra/deploy/nginx.pm2.conf.example` untuk domain `runways.sewaclaude.id`, kemudian uji konfigurasi Nginx dan aktifkan sertifikat TLS serta redirect HTTPS. Contoh menyediakan HTTP untuk bootstrap; sertifikat harus dipasang pada VPS. Port 8080 tetap loopback. Hentikan proses development/preview lama yang sebelumnya diproxy setelah upstream baru terverifikasi; jangan menghapus proses PM2 aplikasi lain.
+
+```bash
+pm2 status runways-web
+pm2 logs runways-web --lines 50
+curl -I -H 'Host: runways.sewaclaude.id' http://127.0.0.1:8080/
+curl -I http://127.0.0.1:8080/artikel/
+curl -I http://127.0.0.1:8080/halaman-tidak-ada/
+nginx -t
+```
+
+Harapan: beranda/daftar artikel 200, URL hilang 404. Pastikan upstream Nginx mengarah ke port 8080, bukan Astro port 4321. Dev/preview memiliki allowlist domain eksplisit di konfigurasi Astro, tetapi tidak dipakai pada proses PM2 ini. Tidak perlu mengizinkan semua hostname untuk memperbaiki error Vite. Lihat [Astro allowedHosts](https://docs.astro.build/en/reference/configuration-reference/#serverallowedhosts) dan [konfigurasi PM2](https://pm2.keymetrics.io/docs/usage/application-declaration/).
 
 Pastikan URL seperti `/artikel/slug/` dilayani dari `artikel/slug/index.html`, dan URL yang hilang memberikan status 404 dengan halaman `404.html`. Sitemap/robots harus sesuai environment dan domain.
+
+Alternatif tanpa proses Node runtime: `infra/deploy/nginx.conf.example` melayani `/var/www/runways/current` langsung. Pilih satu konfigurasi Nginx untuk domain tersebut; jangan aktifkan kedua contoh sekaligus.
 
 ## 5. Rollback dan backup
 

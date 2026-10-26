@@ -6,6 +6,7 @@
     "apps/web"
   ],
   "scripts": {
+    "start": "node scripts/serve-static.mjs",
     "dev": "npm run dev --workspace @runways/web",
     "build": "npm run build --workspace @runways/web",
     "preview": "npm run preview --workspace @runways/web",

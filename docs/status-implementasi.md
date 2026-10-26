@@ -13,16 +13,21 @@ Diperbarui: 27 Oktober 2026. Arah implementasi sekarang Astro SSG dengan data JS
 - Dependency/config/script/runtime source CMS, provisioning database, pemeriksaan lisensi, webhook, service backend, serta pengujian khusus backend telah dihapus.
 - `.env` dibersihkan menjadi konfigurasi publik website; password/token/license key lama tidak disalin ke source. Cache npm proyek dan output lama dibersihkan.
 - CI, contoh Nginx, release statis, PRD, serta panduan JSON/GitHub/VPS diperbarui. `AGENTS.md` lama dipertahankan sesuai instruksi awal pengguna.
+- Domain `runways.sewaclaude.id` ditambahkan ke allowlist Astro development/preview secara eksplisit.
+- `ecosystem.config.cjs` mengelola server file statis sebagai `runways-web` pada loopback port 8080. Contoh proxy Nginx dan panduan PM2/reboot tersedia; release mengikuti symlink `current` tanpa restart proses untuk perubahan konten.
 
 ## Pengujian yang berhasil
 
-- 19 tes otomatis mencakup publikasi, tanggal artikel, slug/ID, kategori, harga, portfolio consent, galeri draft, catatan pricing, WhatsApp, keamanan markup, metadata, route, dan aset.
+- 24 tes otomatis mencakup publikasi, tanggal artikel, slug/ID, kategori, harga, portfolio consent, galeri draft, catatan pricing, WhatsApp, keamanan markup, metadata, route, aset, server statis, dan konfigurasi PM2.
 - Loader berhasil ketika seluruh pemanggilan fetch sengaja dibuat gagal: sumber konten tidak memerlukan API.
 - `npm run check`: sintaks modul serta 16 halaman valid.
 - Build Astro nyata dengan perubahan sementara pada file JSON menghasilkan halaman artikel baru, tautan daftar artikel, item galeri, dan pembaruan galeri beranda.
 - JSON asli dipulihkan dan build diulang: halaman/item uji yang dihapus tidak tertinggal. Build akhir kembali menjadi 16 halaman dengan metadata dan tiga stylesheet yang terverifikasi.
 - Preview mandiri `.local-preview/` berhasil dibuat ulang; sintaks script release lolos pemeriksaan shell.
 - Nilai secret lama tidak ditemukan pada source yang diperiksa setelah pembersihan `.env`.
+- Handler server diuji terhadap hasil build nyata: 16 HTML, tiga stylesheet, logo, sitemap, robots, redirect, dan 404 lolos. Pengujian juga memverifikasi HEAD, penolakan write/traversal/symlink keluar root, dan pergantian release tanpa restart.
+- Parser PM2 6.0.13 berhasil membaca konfigurasi CommonJS pada repository ESM. Build dan pemeriksaan sintaks konfigurasi/release lolos.
+- Listener HTTP lokal ditolak sandbox dengan `EPERM` pada `127.0.0.1:8080`; tes handler tetap dijalankan tanpa membuka socket. Daemon PM2, service reboot, konfigurasi/TLS Nginx, dan domain pada VPS belum diuji langsung.
 
 ## Resource eksternal yang belum dibersihkan
 
